@@ -5,13 +5,15 @@ import * as dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
 
-import './database';
 import './shared/container';
+
 import { router } from './routes';
 import { AppError } from './shared/errors/AppError';
+import createConnection from  './database'
 
 dotenv.config();
 
+createConnection();
 const app = express();
 
 app.use(cors());

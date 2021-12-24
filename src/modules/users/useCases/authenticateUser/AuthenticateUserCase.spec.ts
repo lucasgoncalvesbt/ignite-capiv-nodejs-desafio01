@@ -2,6 +2,7 @@ import { AppError } from "@shared/errors/AppError";
 import { hash } from "bcryptjs";
 import { InMemoryUsersRepository } from "../../repositories/in-memory/InMemoryUsersRepository";
 import { AuthenticateUserUseCase } from "./AuthenticateUserUseCase";
+import { IncorrectEmailOrPasswordError } from "./IncorrectEmailOrPasswordError";
 
 let authenticateUserUseCase: AuthenticateUserUseCase;
 let userRepositoryInMemory: InMemoryUsersRepository;
@@ -35,7 +36,7 @@ describe('Authenticate User', () => {
         email: 'testeErrado@email.com',
         password: 'user.password',
       });
-    }).rejects.toBeInstanceOf(AppError);
+    }).rejects.toBeInstanceOf(IncorrectEmailOrPasswordError);
   });
 
   it('should not be able to authenticate with incorrect password', () => {
@@ -50,6 +51,6 @@ describe('Authenticate User', () => {
         email: user.email,
         password: 'senhaIncorreta',
       });
-    }).rejects.toBeInstanceOf(AppError);
+    }).rejects.toBeInstanceOf(IncorrectEmailOrPasswordError);
   });
 })
